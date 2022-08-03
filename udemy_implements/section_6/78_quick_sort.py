@@ -41,3 +41,14 @@ A = [3, 5, 8, 9, 6, 2]
 print("original array", A)
 quick_sort(A, 0, len(A) - 1)
 print("sorted array", A)
+
+B = [20, 1, 60, 200, 2, 12, 1, 7]
+
+quick_sort(B, 0, len(B) - 1)
+
+print(B)
+
+C = [4, 1, 7, 899, 2, 40]
+
+quick_sort(C, 0, len(C) - 1)
+print(C)
