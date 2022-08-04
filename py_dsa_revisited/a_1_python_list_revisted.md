@@ -96,7 +96,7 @@ If you wanna insert something. you need to traverse the array to get the positio
 def insert(self, idx, val):
     if self.last_index > self.max_size - 1:
         self.__resize()
-    for i in range(self.last_index, idx - 1, -1):  |\label{line:lst_arrlistins_range}|
+    for i in range(self.last_index, idx - 1, -1):
         self.my_array[i + 1] = self.my_array[i]
     self.last_index += 1
     self.my_array[idx] = val
@@ -112,8 +112,25 @@ def __setitem__(self, idx, val):
     raise LookupError("index out of bounds")
 ```
 
-Now you have the ability to build a python list using `linked-list` and allocated strategy. How nice!
+Now you have the ability to build a python list using `array` and allocated strategy. How nice!
 
 # Reference
 
 [9.2. Python Lists Revisited](https://runestone.academy/runestone/books/published/pythonds3/Advanced/pylists.html)
+
+# Review @ 20220804
+
+[ref](https://wiki.python.org/moin/TimeComplexity)
+
+operations on python list
+
+method|python list| linked list|
+------|-----------|------------|
+copy  |$O(N)$     |      $O(N)$|
+append|$O(1)$ (in general over allocated), $O(N)$ for worst case    |      $O(N)$|
+pop last  |$O(1)$     |      $O(N)$|
+pop intermediate  |$O(N)$ (need to move the remain)     |      $O(N)$ (if N is last)|
+insert head  |$O(N)$     |      **$O(1)$** (just assign pointer)|
+insert intermediate  |$O(N)$     |      $O(N)$|
+get item  |$O(1)$     |      $O(N)$|
+set item  |$O(1)$     |      $O(N)$|
