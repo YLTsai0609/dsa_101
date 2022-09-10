@@ -55,13 +55,13 @@ Combining your machine learning midset and data structure and algorithms. Bring 
 |B-4 sorted squared|0%|
 |B-5 Decision Tree|0%|
 
-## Fucking Algortihm 101
-
+## fucking_algorithm_101
 
 |id|chp|name|start|complete|discussion complete|
 |--|---|----|-----|--------|------------------|
-|001|1|学习算法和刷题的框架思维|20220412|20220412||
-|002|1|学习算法和刷题的框架思维|20220412|20220412||
+|001|0|学习算法和刷题的框架思维|20220412|20220412||
+|002|0|学习算法和刷题的框架思维|20220412|20220412||
+|003|1|手把手刷資料結構 - array - 快慢指針|20220910|20220910|
 
 
 
