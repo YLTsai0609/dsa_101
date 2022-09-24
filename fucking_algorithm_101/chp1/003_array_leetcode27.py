@@ -1,5 +1,6 @@
 """
 https://leetcode.com/problems/remove-element/solution/
+easy
 """
 from typing import List
 

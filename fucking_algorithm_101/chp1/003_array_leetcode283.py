@@ -1,6 +1,6 @@
 """
 https://leetcode.com/problems/move-zeroes/
-
+easy
 """
 
 from typing import List

@@ -19,14 +19,45 @@
 
 
 ## Leetcode 26, 刪除已排序數組中的重複元素
+  * input : sorted array : `[0,0,1,2,2,3,3]`
+  * output : `[0,1,2,3]`
   * replace in place - 題目要求，不能多 new 一個 array
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 * sol 1 :
-  * 重複的元素必定連在一起，每次找到重複就刪除，array 中的元素刪除，涉及到資料搬移(copy, paste)
+  * 重複的元素必定連在一起，每次找到重複就刪除，array 中的元素刪除(`array.remove(element)`)，涉及到資料搬移(copy, paste)
   * sc O(1) , tc : O(N^2)，[ref](https://wiki.python.org/moin/TimeComplexity)
 * sol 2 : how about 開一個新的 list，找到重複值不做事，找到不重複值就加入到新的 array?
   * sc : O(N), tc O(N)
 * sol 3 : 
-  * 透過快慢指針 - slow 走後面，fast 走前面，美找到一個不重複嚴肅，slow += 1 --> `nums[0 .. slow]` 都會是無重複元素，當 `fast` 走完之後，`nums[0 .. slow]` 就會是去重複的結果
+  * 透過快慢指針 - slow 走後面，fast 走前面，每找到一個不重複元素，slow += 1 --> `nums[0 .. slow]` 都會是無重複元素，當 `fast` 走完之後，`nums[0 .. slow]` 就會是去重複的結果
   * <img src='../../assets/003array_1.gif'></img>
   * sc : O(1), tc : O(N)
 
@@ -41,8 +72,11 @@ def removeDuplicates (nums : List[int]) -> List[int]:
     slow = 0
     fast = 0
     while fast < len(nums):
+        if nums[fast] == nums[slow]:
+          # 找到重複值，快指針前進
+          pass
         if nums[fast] != nums[slow]:
-            # 找到獨立值，將獨立值放置array中，將 duplciates 替換掉
+            # 找到獨立值，將獨立值放置array中，將 duplciates 替換掉，快指針繼續前進
             slow += 1
             nums[slow] = nums[fast] 
         fast += 1
@@ -65,10 +99,40 @@ https://leetcode.com/problems/remove-duplicates-from-sorted-list/submissions/
 
 https://leetcode.com/problems/remove-element/
 
+<br>
+
 * 除了去重複(原地修改)，也可能會碰到原地刪除
 * `nums = [0,1,2,2,3,0,4,2], val = 2`
 * out = 5, first at index = 2, final at index at 7, k = 7-5 = 2
 * do not allocate extra space for another array
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 * Sol 1 :
   * 單指標 i, 記錄值 first_match_idx, current_match_idx，掃一遍 array
   * tc O(N), sc O(1)
@@ -116,6 +180,34 @@ Input: nums = [0,1,0,3,12]
 Output: [1,3,12,0,0]
 ```
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 * 並沒有要求不能創造新的 array
 
 * sol 1:
@@ -136,4 +228,93 @@ Output: [1,3,12,0,0]
 
 # 左右指針
 
-* binary search
+* binary search 基本上就是雙指針，只是是左右指針(相向 / 背向)
+
+```python
+def binary_search(nums : List[int], target : int) -> int:
+  # 左右指針、相向而行
+  # 注意，需要 sorted array 才能夠使用
+  left = 0
+  right = len(nums) - 1
+  while (right >= left):
+    mid : int = (right + left) / 2 # 整數?
+    if nums[mid] == target:
+      return mid
+    elif nums[mid] < target:
+      left = mid + 1
+    elif nums[mid] > target:
+      right = mid - 1
+  return -1
+```
+
+## Leetcode 167 - Two Sum II - Input Array Is Sorted
+
+* 一個已經被排序好的 array，給定 target，拆解是哪兩個元素的和
+* `numbers = [2, 7, 11, 15], target = 9`, out = `[1,2]`
+* 有什麼限制嗎?
+  * array 長度 < 3 * 10^4
+  * -1000 < 值域 < 1000
+  * -1000 < target < 1000
+  * test case 只有一個解
+  * 每個元素只能被使用一次，而非兩次
+* sol 1
+  * 雙層 for loop, e1 + e2 == target
+  * tc : O(N^2)
+  * sc : O(1)
+* sol 2 
+  * hash table
+  * 開一個 hash table，{2 : 0, 7 : 1, 11 : 2, 15 : 3}
+  * for loop array, target - e1 in hash table?
+  * tc : O(N)
+  * sc : O(N)
+* sol 3 
+  * sorted, 可以 apply binary search like algo
+
+```python
+def twoSum(nums : List[int], target : int) -> List[int]:
+  # 排序好的 array
+  # 左右指標相向而行
+  left = 0
+  right = 0
+  while right > left:
+    _sum = nums[left] + nums[right]
+    if _sum == target:
+      # 題目要求 index 從 1 開始
+      return [left+1, right+1]
+    elif _sum < target:
+      # 太小了，_sum 需要增加，因為已經排序好了，唯一 _sum 變大的方式就是
+        left += 1
+    elif _sum > target:
+      right -= 1
+  return [-1, -1]
+```
+
+# Leetcode 344 - Reverse String
+
+* 反轉數組，reverse 函數，基本上都是類似的操作方法
+
+```
+Input: s = ["h","e","l","l","o"]
+Output: ["o","l","l","e","h"]
+```
+
+```python
+def reverse_string(s : List[str]) -> List[str]:
+  # 左右指針相向而行
+  left = 0
+  right = 0
+  while left < right:
+    # swap element
+    tmp = s[left]
+    s[left] = s[right]
+    s[right] = tmp
+    left += 1
+    right += 1
+    # 相等時 array 不用做事
+  return s
+
+```
+
+# 回文檢查
+
+# 最常回文字串

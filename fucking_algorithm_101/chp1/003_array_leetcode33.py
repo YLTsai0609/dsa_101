@@ -1,6 +1,8 @@
 """
 https://leetcode.com/problems/remove-duplicates-from-sorted-list/
 
+easy
+
 no extra space for another array, modifiying the input array in-place
 
 nums = [1,1,2]
