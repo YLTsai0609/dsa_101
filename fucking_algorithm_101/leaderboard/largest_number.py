@@ -1,15 +1,15 @@
 """
 # 179
 https://leetcode.com/problems/largest-number/
+
+sort algorithm : O(nlogn)
+such as 
+    merge sort, quick sort : O(NlogN)
+    bubble sort : O(N^2)
+
 """
 
 from typing import List
-
-
-# def stringsort_wrong_ans(nums: List) -> str:
-#     raw_str = "".join([str(x) for x in nums])
-#     sorted_nums = "".join(sorted(raw_str, reverse=True))
-#     return sorted_nums
 
 
 class compare(str):
@@ -27,8 +27,8 @@ def compare_by_concat(nums: List[int]) -> str:
 
 def compare_by_factor(nums: List[int]) -> str:
     """
-	轉字串解
-	"""
+    轉字串解
+    """
     nums = [str(x) for x in nums]
     # 需要知道最大長度
     maxL = max([len(x) for x in nums])
