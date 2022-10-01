@@ -17,17 +17,25 @@ brute force :
 tc : O(N^3)
 sc : O(1)
 
-dynamic programming:
+dynamic programming v1:
 
 improved version of brute force
 	- 很多 sub string 不用重算
 	- bab 是回文
 	- ababa 一定是回文，只要比最外面左跟右一樣就行了，不用全比
-	- P(i, j) 是不是回文(i, j is index of array) : 
-		- Si, Sj 是回文, true
+	- P(left, right) 是不是回文(left, right is index of array) : 
+		- Sleft, Sright 是回文, true
 		- otherwise, false
-	- P(i, j) = (P(i+1, j-1) and Si == Sj), i是左, j是右
-	- base cases : P(i, i) = True, P(i, i+1) == (s[i] == s[i+1]), build lookup table
+	- P(left, right) = (P(left+1, right-1) and Sleft == Sright), i是左, j是右
+	- base cases : P(left, left) = True, P(left, left+1) == (s[left] == s[left+1]), build lookup table
+	- create lookup table sc : O(N^2)
+	- tc : O(N^2)
+
+dynamic programming v2:
+	- v1 優化版 P(left, right) = (P(left + 1, right-1) and Sleft == Sright) 只 depends on 上一層，不用存整個 matrix
+    - sc : O(N)
+    - tc : O(N^2)
+
 
 Manacher's Algorithm
 tc : O(N)
@@ -38,9 +46,9 @@ from typing import List
 
 def is_palindrome(s: str) -> bool:
     """
-	tc : O(N)
-	sc : O(1)
-	"""
+    tc : O(N)
+    sc : O(1)
+    """
     left = 0
     right = len(s) - 1
     while left < right:
@@ -54,10 +62,10 @@ def is_palindrome(s: str) -> bool:
 
 def brute_force(s: str) -> str:
     """
-	tc : O(N^2)
-	sc : O(1)
-	debug this
-	"""
+    tc : O(N^2)
+    sc : O(1)
+    debug this
+    """
     res = ""
     for left in range(len(s)):
         for right in range(len(s)):
@@ -69,9 +77,9 @@ def brute_force(s: str) -> str:
 
 def substring_palindrome(s: str, left: int, right: int) -> str:
     """
-	tc : O(N)
-	sc : O(1)
-	"""
+    tc : O(N)
+    sc : O(1)
+    """
     # 雙指標背向而行
     # 相同 left, right, s=4, abba
 
@@ -87,9 +95,9 @@ def substring_palindrome(s: str, left: int, right: int) -> str:
 
 def twopointer(s: str) -> str:
     """
-	tc : O(N)
-	sc : O(k) --> longest palindrome
-	"""
+    tc : O(N)
+    sc : O(k) --> longest palindrome
+    """
     res = ""
     for i in range(len(s)):
         s_odd = substring_palindrome(s, i, i)
@@ -103,10 +111,10 @@ def twopointer(s: str) -> str:
 
 def dp(s: str) -> str:
     """
-	babad
-	tc : O(N^2)
-	sc : O(N^2)
-	"""
+    babad
+    tc : O(N^2)
+    sc : O(N^2)
+    """
     if s == "":
         return s
 
@@ -143,10 +151,31 @@ def dp(s: str) -> str:
     return res
 
 
+def dp_v2(s: str) -> str:
+    if s == "":
+        return s
+    res = ""
+    lookup = [None for i in range(len(s))]
+    for right in range(len(s)):
+        for left in range(right + 1):
+            # update lookup at level = right, using dp table at level = right - 1
+            if left == right:
+                lookup[left] = True
+            elif right == left + 1:
+                lookup[left] = s[left] == s[right]
+            else:
+                lookup[left] = lookup[left + 1] and (s[left] == s[right])
+
+            curr_substring = s[left : right + 1]
+            if lookup[left] and len(curr_substring) > len(res):
+                res = curr_substring
+    return res
+
+
 def manacher_algo(s: str) -> str:
     """
-	https://www.geeksforgeeks.org/manachers-algorithm-linear-time-longest-palindromic-substring-part-1/
-	"""
+    https://www.geeksforgeeks.org/manachers-algorithm-linear-time-longest-palindromic-substring-part-1/
+    """
     pass
 
 
@@ -159,11 +188,7 @@ if __name__ == "__main__":
         # print(s)
         # print(is_palindrome(s))
         print(f"input : {s}")
-        for func in [
-            brute_force,
-            twopointer,
-            dp,
-        ]:
+        for func in [brute_force, twopointer, dp, dp_v2]:
             print(f"{func.__name__} : ", func(s))
     # print(substring_palindrome(s1, 2, 2))
     # print(substring_palindrome(s4, 4, 4))
