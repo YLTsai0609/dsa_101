@@ -317,4 +317,4 @@ def reverse_string(s : List[str]) -> List[str]:
 
 # 回文檢查
 
-# 最常回文字串
+# 最長回文字串
