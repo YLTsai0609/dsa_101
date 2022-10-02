@@ -62,9 +62,8 @@ def is_palindrome(s: str) -> bool:
 
 def brute_force(s: str) -> str:
     """
-    tc : O(N^2)
+    tc : O(N^2) - overall O(N^3)
     sc : O(1)
-    debug this
     """
     res = ""
     for left in range(len(s)):
