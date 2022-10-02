@@ -229,7 +229,7 @@ Output: [1,3,12,0,0]
 # 左右指針
 
 * binary search 基本上就是雙指針，只是是左右指針(相向 / 背向)
-
+* psudo code in python
 ```python
 def binary_search(nums : List[int], target : int) -> int:
   # 左右指針、相向而行
@@ -237,7 +237,7 @@ def binary_search(nums : List[int], target : int) -> int:
   left = 0
   right = len(nums) - 1
   while (right >= left):
-    mid : int = (right + left) / 2 # 整數?
+    mid : int = (right + left) // 2 # 整數?
     if nums[mid] == target:
       return mid
     elif nums[mid] < target:
@@ -275,7 +275,7 @@ def twoSum(nums : List[int], target : int) -> List[int]:
   # 排序好的 array
   # 左右指標相向而行
   left = 0
-  right = 0
+  right = len(nums) - 1
   while right > left:
     _sum = nums[left] + nums[right]
     if _sum == target:
@@ -317,4 +317,20 @@ def reverse_string(s : List[str]) -> List[str]:
 
 # 回文檢查
 
-# 最長回文字串
+```python
+def is_palindrome(s: str) -> bool:
+    """
+    tc : O(N)
+    sc : O(1)
+    左右指針，相向而行，左==右才繼續
+    """
+    left = 0
+    right = len(s) - 1
+    while left < right:
+        if s[left] != s[right]:
+            return False
+        left += 1
+        right -= 1
+    return True
+```
+# 最長回文子字串
