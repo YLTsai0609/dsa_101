@@ -48,6 +48,7 @@ def is_palindrome(s: str) -> bool:
     """
     tc : O(N)
     sc : O(1)
+    abba
     """
     left = 0
     right = len(s) - 1

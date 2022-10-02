@@ -45,6 +45,12 @@ def twopointer_sol(nums: List[int], target: int) -> List[int]:
     sc : O(1)
     tc : O(N)
     use sorted condition
+    
+    [2, 7, 11, 15]
+    2 + 15, target : 9, 17 > 9
+    2 + 11, target : 9, 13 > 9
+    2 + 7, target : 9
+    return 
     """
     # 雙指標，相向而行
     left = 0
