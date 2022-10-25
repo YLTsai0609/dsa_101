@@ -17,3 +17,9 @@ https://leetcode.com/problems/random-pick-with-weight/
 
 ## 回顧隨機算法
 
+1. 設計隨機取得元素，新增、刪除在常數時間複雜度 - 主要是資料結構的應用，每次把 elements 搬到 array 尾巴再刪掉
+2. [遊戲中的隨機算法](https://labuladong.github.io/algo/4/32/114/) - 水塘抽樣算法，運用數學運算，在無限序列中等機率選取元素
+  
+但能解決目前問題的，反而是 `前綴和`, `binary search`
+
+...
