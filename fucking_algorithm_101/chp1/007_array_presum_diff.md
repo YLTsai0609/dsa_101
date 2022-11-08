@@ -3,6 +3,9 @@
 * [小而美的算法技巧：前缀和数组](https://labuladong.github.io/algo/2/20/24/)
 * [小而美的算法技巧：差分数组](https://labuladong.github.io/algo/2/20/25/)
 
+# 前綴和
+
+* 不修改原始 array ，頻繁查詢某區間內的累加和
 
 # 1d array - presum leetcode 303
 
@@ -226,3 +229,193 @@ class NumMatrix:
 # obj = NumMatrix(matrix)
 # param_1 = obj.sumRegion(row1,col1,row2,col2)
 ```
+
+# 差分
+
+* 前綴和主要思想 - 不修改原始 array ，頻繁查詢某區間內的累加和
+
+```Java
+class PrefixSum {
+    // 前缀和数组
+    private int[] prefix;
+    
+    /* 输入一个数组，构造前缀和 */
+    public PrefixSum(int[] nums) {
+        prefix = new int[nums.length + 1];
+        // 计算 nums 的累加和
+        for (int i = 1; i < prefix.length; i++) {
+            prefix[i] = prefix[i - 1] + nums[i - 1];
+        }
+    }
+
+    /* 查询闭区间 [i, j] 的累加和 */
+    public int query(int i, int j) {
+        return prefix[j + 1] - prefix[i];
+    }
+}
+```
+
+* `prefix[i]` 代表 `nums[0..i-1]`，如果要求 `nums[i..j]`，只需要 `prefix[j+1] - prefix[i]`
+
+* 差分 - 頻繁對原始 array 的某個區間進行增減，e.g. 給定 nums
+  * 需要 `nums[2..6] + 1`
+  * 又需要 `nums[3..9] + -3`
+  * 又需要 `nums[0..4] + 2`
+  * 最後問你 `nums` 是什麼
+
+* Naive Solution : tc : O(qN), q = numbers of query.
+* 差分 : 可以做到 tc : O(1)
+
+```Java
+int[] diff = new int[nums.length];
+// 构造差分数组
+diff[0] = nums[0];
+for (int i = 1; i < nums.length; i++) {
+    diff[i] = nums[i] - nums[i - 1];
+}
+
+// 反推原始array
+int[] res = new int[diff.length];
+// 根据差分数组构造结果数组
+res[0] = diff[0];
+for (int i = 1; i < diff.length; i++) {
+    res[i] = res[i - 1] + diff[i];
+}
+```
+
+<img src='../../assets/7_6.jpeg'></img>
+
+* 因為 element i, j 增減不影響差分數組，因此可以利用這個特性，讓每一次 query 要操作的次數變成 2 次，而不是 $O(N)$
+* 理解了這個概念了，可以實作此差分數組工具
+
+```Java
+// 差分数组工具类
+class Difference {
+    // 差分数组
+    private int[] diff;
+    
+    /* 输入一个初始数组，区间操作将在这个数组上进行 */
+    public Difference(int[] nums) {
+        assert nums.length > 0;
+        diff = new int[nums.length];
+        // 根据初始数组构造差分数组
+        diff[0] = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            diff[i] = nums[i] - nums[i - 1];
+        }
+    }
+
+    /* 给闭区间 [i, j] 增加 val（可以是负数）*/
+    public void increment(int i, int j, int val) {
+        diff[i] += val;
+        if (j + 1 < diff.length) {
+            diff[j + 1] -= val;
+        }
+    }
+
+    /* 返回结果数组 */
+    public int[] result() {
+        int[] res = new int[diff.length];
+        // 根据差分数组构造结果数组
+        res[0] = diff[0];
+        for (int i = 1; i < diff.length; i++) {
+            res[i] = res[i - 1] + diff[i];
+        }
+        return res;
+    }
+}
+```
+
+
+# Leetcode 370
+
+Medium
+
+<img src='../../assets/7_7.png'></img>
+
+```
+Input: length = 5, updates = [[1,3,2],[2,4,3],[0,2,-2]]
+Output: [-2,0,3,5,3]
+```
+
+```
+Input: length = 10, updates = [[2,4,6],[5,6,8],[1,9,-4]]
+Output: [0,-4,2,2,2,4,4,-4,-4,-4]
+
+```
+
+```
+Constraints:
+
+1 <= length <= 105
+0 <= updates.length <= 104
+0 <= startIdxi <= endIdxi < length
+-1000 <= inci <= 1000
+```
+
+brute focre : 
+
+1. tc : O(qN)
+2. sc : O(1)
+  
+Diff
+
+1. sc : O(N) - build diff array
+2. tc : O(q)
+
+# Leetcode 1109
+
+Medium
+
+https://leetcode.com/problems/corporate-flight-bookings/
+
+* 試著把題目抽象化
+
+* n 個航班，編號 1 ~ n
+* 一份航班預定表，第 i 條紀錄為 `bookings[i] = [i, j, k]`
+  * 從 i 到 j 每個航班預定了 k 個座位
+
+```
+Input: bookings = [[1,2,10],[2,3,20],[2,5,25]], n = 5
+Output: [10,55,45,25,25]
+Explanation:
+Flight labels:        1   2   3   4   5
+Booking 1 reserved:  10  10
+Booking 2 reserved:      20  20
+Booking 3 reserved:      25  25  25  25
+Total seats:         10  55  45  25  25
+Hence, answer = [10,55,45,25,25]
+```
+
+* 翻譯年糕 : 
+  * 長度為 `n` 的 array，所有元素都是 0
+  * 給你 `bookings`
+  * 三元組 `(i, j, k)`，意思是 nums `[i-1, j-1]` 所有元素加上 `k`
+  * 最後的 `nums` 數組為何
+  * P.S. 題目說 n 從 1 開始計數，但 array 索引從 0 開始
+* 因此解法完全和 leetcode 370 相同
+
+# Leetcode 1094
+
+Medium
+
+https://leetcode.com/problems/car-pooling/
+
+* 一台車， capacity `n` 個座位，單向行駛 --> `array`, `size = infinity`, 但 array 的 element 有最大載客量
+* `trips` - `[numPassengers_i, from_i, to_i]` --> `add`
+* return 是否超過最大承載量
+
+```
+Example 1:
+
+Input: trips = [[2,1,5],[3,3,7]], capacity = 4
+Output: false
+Example 2:
+
+Input: trips = [[2,1,5],[3,3,7]], capacity = 5
+Output: true
+
+```
+
+* 只需調整 `to_result` 檢查是否超過 capacity
+* array 可以給最大量 1000 + 1
