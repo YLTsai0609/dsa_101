@@ -302,7 +302,7 @@ Output: ["o","l","l","e","h"]
 def reverse_string(s : List[str]) -> List[str]:
   # 左右指針相向而行
   left = 0
-  right = 0
+  right = len(s) - 1
   while left < right:
     # swap element
     tmp = s[left]
@@ -333,4 +333,28 @@ def is_palindrome(s: str) -> bool:
         right -= 1
     return True
 ```
-# 最長回文子字串
+# Leetcode 5 最長回文子字串
+
+* 回文子字串函數 - 判斷是否為回文，且吐出回文字串
+* 回文字串可以是奇數 (一個中心) 或者偶數 (兩個中心)
+
+```python
+for 0 <= i < len(s):
+    找到以 s[i] 为中心的回文串
+    找到以 s[i] 和 s[i+1] 为中心的回文串
+    更新答案
+```
+
+回文 :
+
+tc : O(k) - 最長的回文字串
+sc : O(k)
+
+最長回文(包含回文) : 
+
+tc : O(N)
+sc : O(k)
+
+[check here](fucking_algorithm_101/chp1/003_array_leetcode5.py)
+
+

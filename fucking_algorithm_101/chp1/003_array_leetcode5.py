@@ -46,6 +46,7 @@ from typing import List
 
 def is_palindrome(s: str) -> bool:
     """
+    兩個指針雙向而向，交叉時停止
     tc : O(N)
     sc : O(1)
     abba
@@ -59,7 +60,6 @@ def is_palindrome(s: str) -> bool:
         left += 1
         right -= 1
     return True
-
 
 def brute_force(s: str) -> str:
     """
@@ -75,38 +75,38 @@ def brute_force(s: str) -> str:
     return res
 
 
-def substring_palindrome(s: str, left: int, right: int) -> str:
+
+def substring_palindrome(s : str, left : int, right : int) -> str:
     """
+    雙指標背向而行
+    abba
+    abcba
     tc : O(N)
     sc : O(1)
     """
-    # 雙指標背向而行
-    # 相同 left, right, s=4, abba
-
-    # 不掉出邊界
+    # 不掉出邊界，且符合回文
     while (left >= 0 and right < len(s)) and (s[left] == s[right]):
-        # 以 left, right 為中心向外擴展
-        # left == right : 奇數
-        # left right 相鄰 : 偶數
+        # left == right : 奇數，例如 abcba
+        # right = left +1 : 偶數，例如 abba
         left -= 1
         right += 1
-    return s[left + 1 : right]
+    # 跑到 0 的時候，還會被 -1，所以 left 要 + 1
+    return s[left + 1 : right]    
 
 
-def twopointer(s: str) -> str:
+
+def twopointer(s : str) -> str:
     """
-    tc : O(N)
-    sc : O(k) --> longest palindrome
+    字串的每個字元，都考慮回文檢查，要考慮兩組，一組是奇數，一組是偶數
     """
-    res = ""
+    res = ''
     for i in range(len(s)):
-        s_odd = substring_palindrome(s, i, i)
-        s_even = substring_palindrome(s, i, i + 1)
-        if len(s_odd) > len(res):
-            res = s_odd
-        if len(s_even) > len(res):
-            res = s_even
+        s_odd = substring_palindrome(s, i, i) # 奇數回文
+        s_even = substring_palindrome(s, i, i+1) # 偶數回文
+        current_longest = s_odd if len(s_odd) >= len(s_even) else s_even
+        res = current_longest if len(current_longest) >= len(res) else res
     return res
+        
 
 
 def dp(s: str) -> str:
@@ -187,8 +187,14 @@ if __name__ == "__main__":
     for s in [s1, s2, s3, s4]:
         # print(s)
         # print(is_palindrome(s))
+        # print('-'*60)
         print(f"input : {s}")
-        for func in [brute_force, twopointer, dp, dp_v2]:
+        for func in [
+            # brute_force,
+              twopointer,
+                # dp,
+                #   dp_v2
+                  ]:
             print(f"{func.__name__} : ", func(s))
     # print(substring_palindrome(s1, 2, 2))
     # print(substring_palindrome(s4, 4, 4))
