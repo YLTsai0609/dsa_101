@@ -6,7 +6,9 @@
 
 * 雙指針技巧經常用於 - array, linked-list，主要分為 `左右指針`, `快慢指針`
 * 左右指針 - 兩個指針相向而行 / 相背而行
+  * binary search, 回文, 同個 array 的元素判斷
 * 快慢指針 - 同向而行 - 一快一慢
+  * 原地修改、原地刪除 array 元素
 * linked list 中的技術大概都屬於快慢指針，[ref](https://labuladong.github.io/algo/2/19/18/)，多半使用 fast, slow 兩個指針來操作
   * 判斷鍊錶有沒有環
   * 倒數第K個節點

@@ -6,6 +6,11 @@ from typing import List
 
 
 class Naiveloop:
+    """
+    query q(s1, s2)
+    tc : q * |s2-s1|
+    sc : O(1)
+    """
     def __init__(self, nums: List[int]) -> None:
         pass
 
@@ -18,21 +23,20 @@ class PreSum:
         """
         sc : O(1) , score buckets fix at 101 buckets, which represents 0 ~ 100
         tc : O(N), N for numbers of sutdents
-        scores :  [100, 30, 90]
+        scores :  [0,1,1, 3, 9]
+        dist = [1, 2, 0,.....,1]
         """
 
-        # [0, 0, ..., 1, ..., 1, ... 0, 1]
-        self.score_dist = [0 for _ in range(101 + 1)]  # socre = 0 ~ score = 100
+        self.score_dist = [0 for _ in range(101 + 1)] # 0~100 + 1
         self.dist_presum = [None for _ in range(101 + 1)]
-
+        
         for s in scores:
-            self.score_dist[s] += 1
-
+            self.score_dist[s] += 1 # build the hist
+        
         self.dist_presum[0] = 0
         for i in range(1, 101 + 1):
-            # [0, 2, 7, 8]
+            # [0, 1, 3, 3, 4, ...]
             self.dist_presum[i] = self.dist_presum[i - 1] + self.score_dist[i - 1]
-        # for debug
         print(self.dist_presum)
 
     def sumRange(self, left: int, right: int) -> int:

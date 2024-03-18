@@ -14,7 +14,7 @@ https://leetcode.com/problems/range-sum-query-immutable/
 easy
 
 * an integer array `nums`, implement `sumRange (left, right)` - with immutable array
-  * `left <= right`
+  * `left <= right` (a.k.a. sorted)
 
 ```
 Input
@@ -125,6 +125,8 @@ class NumArray:
 * 有多次查詢，每次查詢都是詢問 分數 range(a, b) 中有幾個學生
 
 ## presum
+
+* 過程中很像畫 histogram
 
 ```python
 scores = [] # 儲存所有學生的分數，e.g. [100, 30, 90]
