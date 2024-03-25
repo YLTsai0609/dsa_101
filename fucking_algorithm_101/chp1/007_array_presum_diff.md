@@ -5,7 +5,8 @@
 
 # 前綴和
 
-* 不修改原始 array ，頻繁查詢某區間內的累加和
+* 不修改原始 array ，頻繁查詢某區間內的 **累加和** - 概念很像積分，變成 Area Space 區間相減， 就不用每次都要 loop
+* 差分 - 不修改原始 array，頻繁對區間內 **加加減減** - 概念很像微分，變成 Slop Space ，最後再加總起來，就不用每次都要 loop
 
 # 1d array - presum leetcode 303
 
@@ -233,8 +234,9 @@ class NumMatrix:
 ```
 
 # 差分
+* 一個 array 頻繁對於區間元素加加減減，可以在差分空間 (differential space)，只進行一次加減，不用加減 N 次
 
-* 前綴和主要思想 - 不修改原始 array ，頻繁查詢某區間內的累加和
+* 複習前綴和主要思想 - 不修改原始 array ，頻繁查詢某區間內的累加和
 
 ```Java
 class PrefixSum {
@@ -259,7 +261,7 @@ class PrefixSum {
 
 * `prefix[i]` 代表 `nums[0..i-1]`，如果要求 `nums[i..j]`，只需要 `prefix[j+1] - prefix[i]`
 
-* 差分 - 頻繁對原始 array 的某個區間進行增減，e.g. 給定 nums
+* **差分 - 頻繁對原始 array 的某個區間進行增減，e.g. 給定 nums**
   * 需要 `nums[2..6] + 1`
   * 又需要 `nums[3..9] + -3`
   * 又需要 `nums[0..4] + 2`
@@ -420,4 +422,4 @@ Output: true
 ```
 
 * 只需調整 `to_result` 檢查是否超過 capacity
-* array 可以給最大量 1000 + 1
+* array 可以給最大量 1000 + 1 (意思是，先假設 trip 沒辦法超過 1000 趟)
