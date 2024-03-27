@@ -1,122 +1,111 @@
 '''
 
-Medium
+Hard 
 
-给定两个字符串 s 和 p，找到 s 中所有 p 的 异位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。
+consider string `s`, `t`, return sub-string `s` cover all `t` or None
 
-异位词 指由相同字母重排列形成的字符串（包括相同的字符串）。
+* `t` 的重複字串，我們尋找的子字串字符數量，不應該小於 `t`
+* `s` 如果存在 `t`, 必定是唯一解
 
-示例 1:
+e.g.
 
-输入: s = "cbaebabacd", p = "abc"
-输出: [0,6]
-解释:
-起始索引等于 0 的子串是 "cba", 它是 "abc" 的异位词。
-起始索引等于 6 的子串是 "bac", 它是 "abc" 的异位词。
- 示例 2:
+输入：s = "ADOBECODEBANC", t = "ABC"
+输出："BANC"
+解释：最小覆盖子串 "BANC" 包含来自字符串 t 的 'A'、'B' 和 'C'。
 
-输入: s = "abab", p = "ab"
-输出: [0,1,2]
-解释:
-起始索引等于 0 的子串是 "ab", 它是 "ab" 的异位词。
-起始索引等于 1 的子串是 "ba", 它是 "ab" 的异位词。
-起始索引等于 2 的子串是 "ab", 它是 "ab" 的异位词。
-提示:
+输入：s = "a", t = "a"
+输出："a"
+解释：整个字符串 s 是最小覆盖子串。
 
-1 <= s.length, p.length <= 3 * 104
-s 和 p 仅包含小写字母
+
+输入: s = "a", t = "aa"
+输出: ""
+解释: t 中两个字符 'a' 均应包含在 s 的子串中，
+因此没有符合条件的子字符串，返回空字符串。
+
+
+提示：
+
+m == s.length
+n == t.length
+1 <= m, n <= 105
+s 和 t 由英文字母组成
+进阶：你能设计一个在 o(m+n) 时间内解决此问题的算法吗？
+
+
 '''
 
 from collections import defaultdict
 from typing import List, Dict, Set
 
-def brute_force(s : str, p: str, verbose : bool = True) -> str:
+def brute_force(s : str, t: str) -> str:
     '''
-    算法流程
-    1. p string - 建立一個 hashtable, 並儲存長度 len_p
-    2. for i in range(len(s)):
-        s[i : i + len_p] 比對是否相等
-        if 相等:
-            res.append(i)
-    
-    tc : O(N_s)
-    sc : O(N_p)
-    # 這一題，固定窗口也可以解
-    # 如果每一次要比對字串 p，那麼則是 tc O(N_s * N_p)
+    tc : O(N^2)
     '''
 
-    need = defaultdict(int)
-    for c in p:
-        need[c] += 1
-    
-    left = 0
-    res = []
-    # 等同於 for loop, len(need) = 3
-    while left + len(need) <= len(s):
-        if set(s[left : left + len(need)]) == set(need.keys()): # 不管順序，完全吻合
-            res.append(left)
-        left += 1
-        print(s[left : left + len(need)])
-    return res
-
-
-def sliding_window(s : str, p : str, verbose : bool = True) -> str:
+def sliding_window(s : str, t : str, verbose : bool = True) -> str:
     """
-    "cbaebabacd", "abc", [0,6]
-    tc : O(N_s)
-    sc : O(n_p)
+    s = "ADOBECODEBANC", t = "ABC"
+    return "BANC"
+    tc : O(N)
     """
-    window, need = defaultdict(int), defaultdict(int)
-    # build hashtable for checking permutation
-    for c in p:
+    # build hashtable for checking string t 
+    need, window = defaultdict(int), defaultdict(int)
+    for c in t:
         need[c] += 1
-    left, right, valid_char = 0, 0, 0
-    res = []
+
+    # 左右指針 & 合法字元數
+    left, right = 0, 0
+    valid_chars = 0
     
-    # 右側窗口，獲得合法解
+    # 最小覆蓋字數和長度，需每次 iteration 更新
+    min_cover_start, min_cover_length = 0, float('inf')
+
     while right < len(s):
         c = s[right]
         # 增大窗口
-        right += 1
-        # 窗口內的資料更新
+        right +=1
+        # 進行窗口內資料的更新
         if c in need.keys():
             window[c] += 1
-            # 獲得合法解，必定從 0 -> 1 才有
             if window[c] == need[c]:
-               valid_char += 1 
+                # 只有 window[c] 從 0 變成 1，才會合 need[c] 相等，進而讓 valid += 1，如果 window[c] 從1 , 變成 2 ，那麼不會符合
+                valid_chars += 1 # valid 
 
-        # debug
+        # debug 輸出位置，最終解法不要有 print，因為 IO 操作很耗時
         if verbose:
-            print(left, right, f'window : {s[left : right]}', valid_char)
+            print(left, right, f'window : {s[left:right]}')
 
-        #左側窗口是否要縮小，優化合法解
-        while right - left >= len(p):
-            if valid_char == len(need):
-                res.append(left)
+        # 判斷左側窗口要不要收縮，優化合法解
+        while valid_chars == len(need):
+            # 更新答案的規則
+            if (right - left) < min_cover_length:
+                min_cover_start = left
+                min_cover_length = right - left
             
             # 縮減窗口
             d = s[left]
             left += 1
-
-            # 窗口內資料更新
+            # 進行窗口內資料更新
             if d in need.keys():
                 if window[d] == need[d]:
-                    valid_char -= 1
+                    # 只有接等於 1 時， 合法字元數變少，其他情況，則是 window 內的關鍵字次數少一次
+                    valid_chars -= 1
                 window[d] -= 1
-            
-            # NOTE: 因為其實是固定大小的掃描，所以先更新資料，在縮減窗口
-    return res
+    
+
+    return '' if min_cover_length == float('inf') else s[min_cover_start : min_cover_start + min_cover_length]
+
 
 
 if __name__ == "__main__":
     questions = [
-        ("cbaebabacd", "abc", [0,6]),
-        ("abab",'ab', [0,1,2])
+        ('ADOBECODEBANC','ABC','BANC')
     ]
     
     verbose = True
-    for func in [brute_force, sliding_window]:
+    for func in [sliding_window]:
         for q in questions:
-            s, p, ans = q
-            pred = func(s=s, p=p, verbose=verbose)
+            s, t, ans = q
+            pred = func(s=s, t=t, verbose=verbose)
             assert pred == ans

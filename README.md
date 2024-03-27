@@ -69,7 +69,7 @@ Combining your machine learning midset and data structure and algorithms. Bring 
 |005|1-1|手把手刷資料結構 - 帶權重的隨機選擇算法|20221024|N/A|
 |006|1-3|必知必會算法技巧 - 數學運算技巧 - 談談遊戲中的隨機算法|20221024|N/A|
 |007|2-1|[手把手刷動態規劃 - 動態規劃基本技巧](https://labuladong.github.io/algo/3/25/)|20221109|N/A|
-|009|1-3|我写了首诗，把滑动窗口算法算法变成了默写题|N/A|N/A|||
+|009|1-3|手把手刷資料結構 - array - 雙指針 - Sliding Window|20240327|N/A|||
 
 
 ## blind75

@@ -278,3 +278,72 @@ def sliding_window(s : str, p : str, verbose : bool = True) -> str:
             # NOTE: 因為其實是固定大小的掃描，所以先更新資料，在縮減窗口
     return res
 ```
+
+
+# Leetcode 3
+
+Medium
+
+给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。
+
+示例 1:
+
+输入: s = "abcabcbb"
+输出: 3 
+解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+示例 2:
+
+输入: s = "bbbbb"
+输出: 1
+解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+示例 3:
+
+输入: s = "pwwkew"
+输出: 3
+解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+     请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+提示：
+
+0 <= s.length <= 5 * 104
+s 由英文字母、数字、符号和空格组成
+
+1. 暴力解
+
+```python
+for i in range(len(s)):
+    for j in range(i+1, len(s)):
+        len(s[i:j]) == len(set(s[i:j]))
+        # O(N^2)
+```
+
+2. Sliding Window
+
+```python
+
+left, right = 0, 0
+valid_char = 0
+window = defaultdict(int)
+# need 
+max_valid_char = 0
+# 右側窗口
+while right < len(s):
+    c = s[right]
+    right += 1 # 窗口增大
+
+    # 窗口內資料更新
+    window[c] += 1
+    
+    # 窗口數字從 0 到 1 時， 產生合法解
+    if window[c] == 1:
+        valid_char += 1
+    
+    # 優化可行解，變成最佳解
+    while window[c] > 1:
+        # 取得最佳解
+        max_valid_char = valid_char
+        d = s[left]
+        # 窗口縮減
+        left += 1
+        # 窗口內資料更新
+        window[c] -= 1
+```
