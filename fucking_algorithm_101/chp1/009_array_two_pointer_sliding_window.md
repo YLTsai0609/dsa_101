@@ -138,6 +138,7 @@ step 2 - 找到可行解
 step 3 - 優化可行解
 
 needs - 必須包含所有 t 有的內容，用 hash-table
+
 window - current window 有的
 
 <img src='../assets/9_1.png'></img>

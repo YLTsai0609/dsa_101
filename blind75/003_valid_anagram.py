@@ -1,4 +1,7 @@
 """
+leetcode 242
+Easy
+
 Input: s = "anagram", t = "nagaram"
 Output: true
 
