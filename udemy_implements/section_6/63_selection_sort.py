@@ -7,22 +7,34 @@ Unstable sort
 '''
 
 
-def selection_sort(A):
+def selection_sort_v2(A):
+    '''
+    for i in range(n):
+        1. pick minimum
+        2. place at left
+    A = [3, 5, 8, 9, 6, 2]
+        1. [2, 5, 8, 9, 6, 3]
+        2. [2, 3, 8, 9, 6, 5]
+    '''
     n = len(A)
-    for i in range(n - 1):
-        position = i
-        for j in range(i + 1, n):
-            if A[j] < A[position]:
-                position = j
-            temp = A[i]
-            A[i] = A[position]
-            A[position] = temp
+    for i in range(n-1):
+        pos = i # 假設 A[pos] = 3 是最小值
+        for j in range(i+1, n):
+            # 找到新的最小值，並取代 
+            # A[6] = 2, pos = 6
+            if A[j] < A[pos]:
+                pos = j
+        
+        # swap A[pos] to A[i]
+        # [2, 5, 8, 9, 6, 3]
+        tmp = A[i]
+        A[i] = A[pos]
+        A[pos] = tmp
 
 
 A = [3, 5, 8, 9, 6, 2]
 
-selection_sort(A)
 
 print('original array', A)
-selection_sort(A)
+selection_sort_v2(A)
 print('sorted array', A)

@@ -27,6 +27,8 @@ for c1 in range(s1):
     O(N^2), remove 的話 O(3)
     if c1 in s2:
         remove 
+
+remove - python list 是會自己長大的 array，從任意位置移除，要 O(N^3)
 '''
 
 '''
