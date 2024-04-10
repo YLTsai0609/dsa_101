@@ -100,7 +100,9 @@ def sliding_window(s : str, t : str, verbose : bool = True) -> str:
 
 if __name__ == "__main__":
     questions = [
-        ('ADOBECODEBANC','ABC','BANC')
+        ('ADOBECODEBANC','ABC','BANC'),
+        ('a','a','a'),
+        ('a','aa','')
     ]
     
     verbose = True
