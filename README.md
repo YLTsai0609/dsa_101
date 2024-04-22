@@ -57,6 +57,7 @@ Combining your machine learning midset and data structure and algorithms. Bring 
 
 ## fucking_algorithm_101
 
+### Chp0 & Chp1 - 手把手刷資料結構
 |id|chp|name|start|complete|discussion complete|reviewed|
 |--|---|----|-----|--------|------------------|---------|
 |001|0|学习算法和刷题的框架思维|20220412|20220412||2024-03-13|
@@ -68,15 +69,21 @@ Combining your machine learning midset and data structure and algorithms. Bring 
 |004|1-1|手把手刷資料結構 - 常数时间删除-查找数组中的任意元素|20221024|20221024|
 |005|1-1|手把手刷資料結構 - 帶權重的隨機選擇算法|20221024|N/A|
 |006|1-3|必知必會算法技巧 - 數學運算技巧 - 談談遊戲中的隨機算法|20221024|N/A|
-|007|2-1|[手把手刷動態規劃 - 動態規劃基本技巧](https://labuladong.github.io/algo/3/25/)|20221109|N/A|
-|009|1-3|手把手刷資料結構 - array - 雙指針 - Sliding Window|20240327|N/A|||
+|009|1-3|手把手刷資料結構 - array - 雙指針 - Sliding Window|20240327|20240415|||
 
+### Chp2 - 手把手刷動態規劃
+
+|name|start|complete|discussion complete|reviewed|
+|----|-----|--------|-------------------|--------|
+|動態規劃解題框架|20240419|20240422|||
+|最長遞增子序列|20240422|N/A|||
 
 ## blind75
 
 |content|start|end|
 |-------|-----|---|
-|array_hash_table|2024-03-14||
+|array_hash_table|2024-03-14 (5/8)||
+|sliding_window|2024-04-10 (3/4)||
 
 
 
