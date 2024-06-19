@@ -17,15 +17,28 @@ def remove_element(nums: List[int], val: int) -> int:
     """
     slow = 0
     fast = 0
+    # target val = 2
+    # iter 1, fast = 0, slow = 0, nums = [0]
+    # iter 2, fast = 1, slow = 1, nums = [0,1]
+    # iter 3, fast = 2 (hit), slow = 1, nums = [0,1]
+    # iter 4, fast = 3 (hit), slow = 1, nums = [0,1]
+    # iter 5, fast = 4, slow = 2, nums = [0,1,3]
+    # iter 6, fast = 5, slow = 3, nums = [0,1,3,0]
+    # iter 7, fast = 6, slow = 4, nums = [0,1,3,0,4]
+    # iter 8, fast = 7 (hit)
+    # return len(nums[:slow])
+
+    # [0,1,2,2,3,0,4,2]
     while fast < len(nums):
         if nums[fast] == val:
             pass
         else:
-            nums[slow] = nums[fast]
+            nums[slow] = nums[fast] # [0], #[0,1], [0,1,3], ---> [0,1,3,0,4]
             slow += 1
         fast += 1
-    # return nums[:slow]
     return len(nums[:slow])
+
+   
 
 
 if __name__ == "__main__":

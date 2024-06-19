@@ -134,3 +134,21 @@ insert head  |$O(N)$     |      **$O(1)$** (just assign pointer)|
 insert intermediate  |$O(N)$     |      $O(N)$|
 get item  |$O(1)$     |      $O(N)$|
 set item  |$O(1)$     |      $O(N)$|
+
+# List Comprehension
+
+* [ref](https://myapollo.com.tw/post/this-is-why-list-comprehension-is-so-efficient/)
+```python
+[x for x in range(100)] # faster than
+
+l = []
+    for i in range(100):
+        l.append(i)
+```
+
+* List Comprehension is fater because Python implement an instruction `list_append`
+* l.append() - will need to check, l is a list, l needs append.
+* we could `dis` module to check the function about the execution
+
+* Python files --> Compiler
+  * Bytecode --> PVM (C code)

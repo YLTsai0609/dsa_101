@@ -53,12 +53,9 @@
 <br>
 
 
-* sol 1 :
-  * 重複的元素必定連在一起，每次找到重複就刪除，array 中的元素刪除(`array.remove(element)`)，涉及到資料搬移(copy, paste)
-  * sc O(1) , tc : O(N^2)，[ref](https://wiki.python.org/moin/TimeComplexity)
-* sol 2 : how about 開一個新的 list，找到重複值不做事，找到不重複值就加入到新的 array?
+* sol 1 : how about 開一個新的 list，找到重複值不做事，找到不重複值就加入到新的 array?
   * sc : O(N), tc O(N)
-* sol 3 : 
+* sol 2 : 
   * 透過快慢指針 - slow 走後面，fast 走前面，每找到一個不重複元素，slow += 1 --> `nums[0 .. slow]` 都會是無重複元素，當 `fast` 走完之後，`nums[0 .. slow]` 就會是去重複的結果
   * <img src='../../assets/003array_1.gif'></img>
   * sc : O(1), tc : O(N)
