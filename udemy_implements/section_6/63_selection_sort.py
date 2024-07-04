@@ -16,6 +16,8 @@ def selection_sort_v2(A):
         1. [2, 5, 8, 9, 6, 3]
         2. [2, 3, 8, 9, 6, 5]
     '''
+    # 每一輪比上每一輪 +1, 設當前 minimum 為 pos
+    # A[i], A[pos] 互換
     n = len(A)
     for i in range(n-1):
         pos = i # 假設 A[pos] = 3 是最小值

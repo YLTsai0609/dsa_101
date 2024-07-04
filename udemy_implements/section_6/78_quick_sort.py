@@ -1,37 +1,47 @@
 """
 [On average] Time O(N logN)
-[Worst Case] Time O(N^2) reduce to single linked list
+[Worst Case] Time O(N^2) reduce to single linked list, every pivot is just next to low or high
 
 Space O(1)
 
 """
 
+from typing import List
 
-def quick_sort(A, low, high):
+def quick_sort(A : List[int], low : int, high : int) -> None:
     if low < high:
         pi = partition(A, low, high)
-        quick_sort(A, low, pi - 1)
-        quick_sort(A, pi + 1, high)
+        quick_sort(A, low, pi-1)
+        quick_sort(A, pi+1, high)
 
-
-def partition(A, low, high):
-    pivot = A[low]
+def partition(A : List[int], low : int, high : int) -> int:
+    '''
+    output : the left should be smaller than pivot, the right should be larger
+    '''
+    # A = [3, 5, 8, 9, 6, 2]
+    pivot = A[low] # hypoetherically, pivot = A[1] = 3
     i = low + 1
     j = high
+    
     while True:
         while i <= j and A[i] <= pivot:
-            # not crossed, and A[i] <= pivot, keep traversing
-            i += 1
+            # not crossed, A[i] <= pivot match definition, do nothing
+            i+=1
         while i <= j and A[j] > pivot:
-            # not crossed, and A[j] <= pivot, keep traversing
-            j -= 1
-        if i <= j:
-            # swap i, j for matching the definition of pivot
+            # not crossed, A[j] > pivot match definition, do nothing
+            j-=1
+        
+        if i<=j:
+            # meet A[i] > pivot or A[j] < pivot, swap i, j, to match the definition
             A[i], A[j] = A[j], A[i]
         else:
-            # j just cross i
-            # we find the position to swap pivot
+            # crossed, all travered
             break
+    # pivot at A[low]
+    # A[j] is the smaller
+    # A[i] is the greater
+    # we swap pivot, A[j] to put the pivot at right position
+    # check 75_quick_sort.md
     A[low], A[j] = A[j], A[low]
     return j
 
