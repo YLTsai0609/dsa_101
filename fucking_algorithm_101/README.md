@@ -10,6 +10,11 @@ https://github.com/labuladong/fucking-algorithm
 
 * 美國大佬 : 相似概念，常見的資料結構和演算法精選題，並按照資料結構、演算法來分類
 
+[Grind 75](https://www.techinterviewhandbook.org/grind75/?weeks=1&hours=8)
+
+[哩哩扣扣](https://chatgpt.com/g/g-6731960a3a2081909fe1975e05c034c4-li-li-kou-kou)
+
+
 # Memo
 
 在大廠軟體工程師面試中，LeetCode 題目的回答標準不僅關乎正確性，還要展示出對問題的理解和解決問題的過程。以下是面試中應答 LeetCode 題目時應遵循的標準流程與技巧：
