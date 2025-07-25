@@ -4,6 +4,31 @@ https://github.com/labuladong/fucking-algorithm
 
 * 對岸大佬 : 刷的是題，練的是思維，從思維層面重新解構 leetcode 刷題
 
+# Learning Schedule/Records
+
+[ref - 速成規劃](https://labuladong.online/algo/intro/quick-learning-plan/#%E9%80%9F%E6%88%90%E7%9B%AE%E5%BD%95%E7%9A%84%E5%8E%9F%E7%90%86)
+
+[ref - 扎實學習規劃](https://labuladong.online/algo/intro/beginner-learning-plan/)
+
+通勤日 - blind75 / grind75 / neetcode ... 
+* 練習 - 識別題型
+* [table](https://docs.google.com/spreadsheets/d/1_-Ro5lbscLmfUj6n9RwzRm3g6nmmc9Y8pc_W_nP2Itk/edit?gid=0#gid=0)
+
+整塊時間 - 扎實學習規劃
+  * 有觀念 + 有題目刷 --> 容易建立肌肉記憶
+
+小步迭代，可記錄成長，可形成成就感循環
+
+# Learning Log
+
+|Title|Date|
+|----|-----|
+|链表（链式存储）基本原理|2025-07-25|
+|环形数组技巧及实现| 2025-07-25 |
+|学习数据结构和算法的框架思维| 2025-07-25|
+
+
+
 # Compare to 
 
 [blind75](https://ithelp.ithome.com.tw/articles/10287061)
